@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMELEC CTU-MC - Personnel Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 32px 20px 20px 20px;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 60px;
+            padding: 0 20px;
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-text {
+            font-size: 28px;
+            color: #1a3a52;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .container {
+            display: flex;
+            gap: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .left-section {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #1a3a52;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #5f6368;
+            margin-bottom: 32px;
+            line-height: 1.6;
+            max-width: 400px;
+        }
+
+        .learn-more {
+            color: #1a73e8;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .learn-more:hover {
+            text-decoration: underline;
+        }
+
+        .button {
+            background: linear-gradient(to bottom, #4285f4, #3f7ce8);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+        }
+
+        .button:hover {
+            background: linear-gradient(to bottom, #357ae8, #316ccf);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .button:active {
+            transform: scale(0.98);
+        }
+
+        /* Illustration */
+        .illustration {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+        }
+
+        .illustration img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .button-secondary {
+            background: linear-gradient(135deg, #1a3a52 0%, #2a5a7a 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 28px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(26, 58, 82, 0.2);
+            letter-spacing: 0.3px;
+        }
+
+        .button-secondary:hover {
+            background: linear-gradient(135deg, #0f2540 0%, #1a3a52 100%);
+            box-shadow: 0 8px 24px rgba(26, 58, 82, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .button-secondary:active {
+            transform: scale(0.98);
+        }
+
+        .button-secondary.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(to bottom, transparent, rgba(240, 244, 248, 0.5));
+            border-top: 1px solid #e8e8e8;
+        }
+
+        footer p {
+            font-size: 12px;
+            color: #5f6368;
+            margin: 0;
+            letter-spacing: 0.3px;
+        }
+
+        footer a {
+            color: #1a3a52;
+            text-decoration: none;
+            margin: 0 4px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #2a5a7a;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                margin-bottom: 40px;
+                padding: 0 12px;
+            }
+
+            .header-text {
+                font-size: 22px;
+            }
+
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+
+            .container {
+                flex-direction: column;
+                gap: 40px;
+                padding: 0 12px;
+            }
+
+            .left-section {
+                min-width: auto;
+                text-align: center;
+            }
+
+            .right-section {
+                margin-right: 0 !important;
+                min-height: 280px;
+            }
+
+            .illustration {
+                width: 100%;
+                max-width: 380px;
+                height: 380px;
+                margin: 0 auto;
+            }
+
+            h1 {
+                font-size: 36px;
+                margin-bottom: 16px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+                margin-bottom: 24px;
+                max-width: 100%;
+            }
+
+            .button-secondary {
+                width: 100%;
+                padding: 13px 28px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            footer {
+                margin-top: 40px;
+                padding: 16px 20px;
+            }
+
+            footer p {
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 24px 16px 16px 16px;
+            }
+
+            .header {
+                gap: 12px;
+                margin-bottom: 32px;
+                padding: 0;
+            }
+
+            .logo {
+                width: 56px;
+                height: 56px;
+            }
+
+            .header-text {
+                font-size: 20px;
+            }
+
+            .container {
+                gap: 28px;
+                padding: 0;
+            }
+
+            h1 {
+                font-size: 28px;
+                margin-bottom: 14px;
+            }
+
+            .subtitle {
+                font-size: 13px;
+                margin-bottom: 20px;
+            }
+
+            .illustration {
+                width: 100%;
+                max-width: 300px;
+                height: 300px;
+            }
+
+            .button-secondary {
+                font-size: 14px;
+                padding: 12px 24px;
+            }
+
+            footer {
+                margin-top: 32px;
+                padding: 14px 12px;
+            }
+
+            footer p {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="header">
+            <div class="logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20%281%29-HwKRbLS5qTWdWrKaMOizt0rqnncPMN.png" alt="COMELEC CTU-MC Logo">
+            </div>
+            <div class="header-text">COMELEC CTU-MC</div>
+        </div>
+
+        <div class="container">
+            <div class="right-section" style="flex: 1; margin-right: 40px;">
+                <div class="illustration">
+                    <img src="Untitled (2).png" alt="Personnel illustration">
+                </div>
+            </div>
+
+            <div class="left-section" style="flex: 0.8; display: flex; flex-direction: column; justify-content: center;">
+                <h1>ACCESS PORTAL</h1>
+                <p class="subtitle">Manage and track personnel information efficiently.</p>
+
+                <div class="button-group">
+                    <button onclick="navigateWithLoading()" class="button-secondary" id="proceedBtn">Proceed to Personnel Tracker</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 COMELEC CTU-MC. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function navigateWithLoading() {
+            const btn = document.getElementById('proceedBtn');
+            btn.classList.add('loading');
+            btn.innerHTML = '<div class="spinner"></div>Loading...';
+            
+            setTimeout(() => {
+                window.location.href = 'https://comelecctumc-tracker.vercel.app/';
+            }, 500);
+        }
+    </script>
+</body>
+</html>
